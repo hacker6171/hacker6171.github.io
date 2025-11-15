@@ -1,0 +1,14 @@
+# venv
+.venv/
+venv/
+env/
+
+# node (if any)
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# dotenv
+.env
