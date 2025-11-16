@@ -20,6 +20,14 @@
 <link rel="icon" type="image/png" sizes="512x512" href="assets/android-chrome-512.png">
 </head>
 <body>
+    <!-- MOBILE HEADER (paste right after <body>) -->
+<header class="mobile-header" role="banner" aria-hidden="false">
+  <div class="mobile-left">
+    <img src="assets/favicon-32.png" alt="VM" class="mobile-logo" />
+    <span class="mobile-title">Vighneswara Manda</span>
+  </div>
+  <button id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">☰</button>
+</header>
   <aside class="sidebar" aria-label="Sidebar">
     <div class="profile">
       <img src="assets/avatar.png" alt="Avatar" class="avatar" />
@@ -193,6 +201,48 @@
       <p>Made with ❤️ • Vighneswara Manda</p>
     </footer>
   </main>
+<script>
+  (function(){
+    const btn = document.getElementById('mobile-menu-btn');
+    const sidebar = document.querySelector('.sidebar');
+    if(!btn || !sidebar) return;
+
+    // create backdrop element if missing
+    let backdrop = document.querySelector('.mobile-backdrop');
+    if(!backdrop){
+      backdrop = document.createElement('div');
+      backdrop.className = 'mobile-backdrop';
+      document.body.appendChild(backdrop);
+    }
+
+    function openMenu(){
+      sidebar.classList.add('mobile-open','open');
+      backdrop.classList.add('visible');
+      document.body.classList.add('menu-open');
+      btn.setAttribute('aria-expanded','true');
+    }
+    function closeMenu(){
+      sidebar.classList.remove('open');
+      backdrop.classList.remove('visible');
+      document.body.classList.remove('menu-open');
+      btn.setAttribute('aria-expanded','false');
+      setTimeout(()=>sidebar.classList.remove('mobile-open'), 300);
+    }
+
+    btn.addEventListener('click', ()=>{
+      if(sidebar.classList.contains('open')) closeMenu(); else openMenu();
+    });
+
+    backdrop.addEventListener('click', closeMenu);
+
+    // close menu when user clicks a nav link on small screens
+    document.querySelectorAll('.sidebar .nav-link').forEach(a=>{
+      a.addEventListener('click', ()=>{ if(window.innerWidth <= 900) closeMenu(); });
+    });
+
+    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeMenu(); });
+  })();
+</script>
 
   <script>
 /*

@@ -93,3 +93,74 @@ body{
   .hero h1{font-size:32px}
   .contact-grid{grid-template-columns:1fr}
 }
+/* ---------- MOBILE HEADER & SIDEBAR OVERLAY ---------- */
+/* Show mobile header and hide desktop sidebar on small screens */
+.mobile-header{
+  display:none;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 14px;
+  background:var(--sidebar);
+  border-bottom:1px solid rgba(0,0,0,0.04);
+  position:fixed;
+  top:0; left:0; right:0;
+  z-index:60;
+  height:56px;
+}
+.mobile-header .mobile-left{display:flex;align-items:center;gap:10px}
+.mobile-header .mobile-logo{width:36px;height:36px;border-radius:8px;object-fit:cover}
+.mobile-header .mobile-title{font-weight:700;font-size:15px;color:var(--accent-strong)}
+
+/* mobile menu button */
+#mobile-menu-btn{
+  background:transparent;border:0;font-size:22px;padding:6px 10px;cursor:pointer;color:var(--accent-strong)
+}
+
+/* overlay sidebar when opened */
+.sidebar.mobile-open{
+  position:fixed;
+  inset:56px 0 auto 0; /* below header */
+  width:80%;
+  max-width:340px;
+  height:calc(100vh - 56px);
+  background:var(--sidebar);
+  box-shadow: 4px 0 30px rgba(2,6,23,0.12);
+  transform:translateX(-110%);
+  transition:transform .26s ease;
+  z-index:70;
+  overflow:auto;
+}
+
+/* visible state */
+.sidebar.mobile-open.open {
+  transform: translateX(0);
+}
+
+/* darken page behind overlay */
+.mobile-backdrop{
+  display:none;
+  position:fixed; inset:56px 0 0 0;
+  background:rgba(2,6,23,0.35);
+  z-index:65;
+  transition:opacity .2s ease;
+}
+
+/* show header + hide desktop layout at <=900px */
+@media (max-width:900px){
+  .mobile-header{display:flex}
+  .sidebar{display:block; position:fixed; left:0; top:56px; bottom:0; width:80%; max-width:340px; transform:translateX(-110%); transition:transform .26s ease; z-index:70}
+  .sidebar.mobile-open.open{transform:translateX(0)}
+  .main{margin-left:0;padding-top:76px; /* allow for header height */ padding-left:18px;padding-right:18px}
+  .mobile-backdrop{display:none}
+  .mobile-backdrop.visible{display:block}
+}
+
+/* prevent body scroll when menu open */
+body.menu-open{overflow:hidden}
+
+/* small adjustments for tiny screens */
+@media (max-width:420px){
+  .mobile-header .mobile-title{font-size:14px}
+  .hero h1{font-size:28px}
+}
