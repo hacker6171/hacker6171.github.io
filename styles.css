@@ -231,3 +231,46 @@ body.menu-open{overflow:hidden}
   font-size: 14px;
   color: #666;
 }
+/* Feedback form styling */
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  gap: 12px;
+}
+
+.feedback-form textarea {
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+
+.feedback-form button {
+  width: fit-content;
+  padding: 10px 18px;
+  font-size: 16px;
+}
+
+.word-count {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Feedback inputs */
+.feedback-form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #fafafa;
+}
+
+.feedback-form input:focus {
+  border-color: rgba(0,123,255,0.9);
+  outline: none;
+  background: #fff;
+}

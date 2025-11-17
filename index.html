@@ -231,20 +231,26 @@
 
 <section id="feedback" class="section">
   <h2>Feedback</h2>
-  <p>You can leave me a short message (max 100 words). It will be delivered directly to my email.</p>
+  <p>You can leave me a short message (max 100 words). When you send it, your email app will open with the message pre-filled.</p>
 
-  <form action="https://formsubmit.co/vighneswara.manda@gmail.com" method="POST" class="feedback-form">
-    
-    <!-- Limit words to 100 -->
-    <textarea id="feedbackMessage" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+<form id="feedbackForm" class="feedback-form">
+  <textarea
+    id="feedbackMessage"
+    name="message"
+    rows="5"
+    placeholder="Write your message here..."
+    required
+  ></textarea>
 
-    <input type="hidden" name="_subject" value="New Feedback from Portfolio Website!">
-    <input type="hidden" name="_captcha" value="false">
-    
-    <button type="submit" class="btn">Send Feedback</button>
-    <p id="wordCount" class="word-count">0 / 100 words</p>
-  </form>
+  <input id="feedbackName" name="name" placeholder="Your name (optional)" />
+  <input id="feedbackEmail" name="email" placeholder="Your email (optional)" />
+
+  <button type="submit" class="btn">Send Feedback</button>
+  <p id="wordCount" class="word-count">0 / 100 words</p>
+  <p id="feedbackStatus" class="word-count" style="display:none;"></p>
+</form>
 </section>
+
 
     <footer class="footer">
       <p>Made with <span class="heart">❤️</span> • Vighneswara Manda</p>
@@ -292,8 +298,84 @@
     window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeMenu(); });
   })();
 </script>
+<!-- FEEDBACK SCRIPT (mailto-based, 100-word limit, includes name/email) -->
+<script>
+  (function(){
+    const feedbackForm = document.getElementById("feedbackForm");
+    const feedbackMessage = document.getElementById("feedbackMessage");
+    const wordCount = document.getElementById("wordCount");
+    const feedbackStatus = document.getElementById("feedbackStatus");
 
-  <script>
+    // live 100-word limit
+    if (feedbackMessage) {
+      feedbackMessage.addEventListener("input", () => {
+        let words = feedbackMessage.value.trim().split(/\s+/).filter(Boolean);
+        let count = words.length;
+        if (count > 100) {
+          words = words.slice(0, 100);
+          feedbackMessage.value = words.join(" ");
+          count = 100;
+        }
+        if (wordCount) wordCount.textContent = `${count} / 100 words`;
+      });
+    }
+
+    if (feedbackForm) {
+      feedbackForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const message = feedbackMessage ? feedbackMessage.value.trim() : "";
+        if (!message) {
+          if (feedbackStatus) {
+            feedbackStatus.style.display = "block";
+            feedbackStatus.style.color = "red";
+            feedbackStatus.textContent = "Please write a message before sending.";
+          }
+          return;
+        }
+
+        const words = message.split(/\s+/).filter(Boolean);
+        if (words.length > 100) {
+          if (feedbackStatus) {
+            feedbackStatus.style.display = "block";
+            feedbackStatus.style.color = "red";
+            feedbackStatus.textContent = "Message must be 100 words or less.";
+          }
+          return;
+        }
+
+        const subject = encodeURIComponent("Feedback from portfolio website");
+        // Read optional name + email fields (you added them in the form)
+        const name = document.getElementById("feedbackName")?.value.trim() || "Anonymous";
+        const email = document.getElementById("feedbackEmail")?.value.trim() || "";
+
+        const body = encodeURIComponent(`${message}\n\nFrom: ${name}${email ? " <" + email + ">" : ""}`);
+
+        // Open user's email client with prefilled message
+        window.location.href = `mailto:vighneswara.manda@gmail.com?subject=${subject}&body=${body}`;
+
+        if (feedbackStatus) {
+          feedbackStatus.style.display = "block";
+          feedbackStatus.style.color = "green";
+          feedbackStatus.textContent = "Opening your email app to send the message...";
+        }
+
+        // Optionally clear the textarea after opening mail client
+        setTimeout(() => {
+          if (feedbackMessage) feedbackMessage.value = "";
+          if (wordCount) wordCount.textContent = "0 / 100 words";
+        }, 200);
+      });
+    }
+  })();
+</script>
+
+
+<!-- MOBILE MENU TOGGLE (already present above; keep it) -->
+<!-- (no changes needed here if you already have it) -->
+
+<!-- ROBUST SECTION-HIGHLIGHTING SCRIPT -->
+<script>
 /*
   Robust section-highlighting script:
   - Highlights the nav link whose section has the largest visible area.
@@ -389,23 +471,6 @@ window.addEventListener('load', () => {
   // short timeout to allow layout to settle
   setTimeout(updateActiveByVisibility, 120);
 });
-</script>
-<script>
-  const textarea = document.getElementById("feedbackMessage");
-  const wordCount = document.getElementById("wordCount");
-
-  textarea.addEventListener("input", () => {
-    let words = textarea.value.trim().split(/\s+/);
-    let count = textarea.value.trim() === "" ? 0 : words.length;
-
-    if (count > 100) {
-      words = words.slice(0, 100);
-      textarea.value = words.join(" ");
-      count = 100;
-    }
-
-    wordCount.textContent = `${count} / 100 words`;
-  });
 </script>
 
 </body>
