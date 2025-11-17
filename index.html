@@ -229,8 +229,25 @@
       </ul>
     </section>
 
+<section id="feedback" class="section">
+  <h2>Feedback</h2>
+  <p>You can leave me a short message (max 100 words). It will be delivered directly to my email.</p>
+
+  <form action="https://formsubmit.co/vighneswara.manda@gmail.com" method="POST" class="feedback-form">
+    
+    <!-- Limit words to 100 -->
+    <textarea id="feedbackMessage" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+
+    <input type="hidden" name="_subject" value="New Feedback from Portfolio Website!">
+    <input type="hidden" name="_captcha" value="false">
+    
+    <button type="submit" class="btn">Send Feedback</button>
+    <p id="wordCount" class="word-count">0 / 100 words</p>
+  </form>
+</section>
+
     <footer class="footer">
-      <p>Made with ❤️ • Vighneswara Manda</p>
+      <p>Made with <span class="heart">❤️</span> • Vighneswara Manda</p>
     </footer>
   </main>
 <script>
@@ -372,6 +389,23 @@ window.addEventListener('load', () => {
   // short timeout to allow layout to settle
   setTimeout(updateActiveByVisibility, 120);
 });
+</script>
+<script>
+  const textarea = document.getElementById("feedbackMessage");
+  const wordCount = document.getElementById("wordCount");
+
+  textarea.addEventListener("input", () => {
+    let words = textarea.value.trim().split(/\s+/);
+    let count = textarea.value.trim() === "" ? 0 : words.length;
+
+    if (count > 100) {
+      words = words.slice(0, 100);
+      textarea.value = words.join(" ");
+      count = 100;
+    }
+
+    wordCount.textContent = `${count} / 100 words`;
+  });
 </script>
 
 </body>
