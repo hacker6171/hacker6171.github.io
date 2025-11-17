@@ -164,3 +164,20 @@ body.menu-open{overflow:hidden}
   .mobile-header .mobile-title{font-size:14px}
   .hero h1{font-size:28px}
 }
+/* Resume Download Button (Sidebar or Hero) */
+.resume-btn {
+  display: block;
+  background: var(--accent-strong);
+  color: white;
+  text-align: center;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-top: 10px;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.resume-btn:hover {
+  background: var(--accent);
+}
