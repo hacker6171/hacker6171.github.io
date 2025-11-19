@@ -274,3 +274,25 @@ body.menu-open{overflow:hidden}
   outline: none;
   background: #fff;
 }
+/* Certification badge styling */
+.cert-badges {
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cert-badge {
+  height: 60px;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(2,6,23,0.08);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+  cursor: pointer;
+}
+
+.cert-badge:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 12px 28px rgba(2,6,23,0.12);
+  opacity: 0.96;
+}
