@@ -389,3 +389,65 @@ body.menu-open{overflow:hidden}
     .main { padding-top: 76px; } /* preserve spacing under mobile header */
   }
 }
+/* ====== Fix mobile/desktop nav active + focus artifacts ====== */
+
+/* Make active state compact and contrast-friendly */
+.nav-link {
+  transition: background-color .18s ease, color .12s ease, box-shadow .12s ease;
+  box-shadow: none !important;               /* remove huge soft shadow */
+  -webkit-box-shadow: none !important;
+  backface-visibility: hidden;
+  will-change: transform, background-color;
+}
+
+/* Clear any accidental blur/backdrop effects */
+.nav-link:focus,
+.nav-link:active,
+.nav-link.active {
+  outline: none;
+  box-shadow: none !important;
+  background-color: #1f2937; /* dark (desktop) fallback */
+  color: #fff !important;
+  border-radius: 8px;
+}
+
+/* Better mobile active color (keeps consistency with resume-btn) */
+@media (max-width:900px){
+  .nav-link:focus,
+  .nav-link:active,
+  .nav-link.active {
+    background-color: rgba(255,255,255,0.06) !important;
+    color: #ffffff !important;
+    z-index: 80; /* ensure it sits above slide-in backdrop */
+    position: relative;
+  }
+}
+
+/* If you use theme-dark class, ensure active color is visible */
+body.theme-dark .nav-link.active {
+  background-color: #238636 !important; /* compact green */
+  color: #ffffff !important;
+  box-shadow: 0 6px 12px rgba(2,6,23,0.18); /* subtle */
+}
+
+/* Prevent soft large focus rings from browsers on mobile */
+.nav-link:-moz-focusring { outline: none; }
+
+/* Mobile menu item inner shadow fix:
+   some browsers render a large highlight if element uses border-radius + box-shadow.
+   We force the nav-link to paint cleanly. */
+.nav-link {
+  -webkit-tap-highlight-color: rgba(0,0,0,0); /* disables Android tap highlight */
+}
+
+/* Ensure the sidebar overlay/backdrop doesn't leak visual filters */
+.mobile-backdrop,
+.sidebar {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Small visual polish: make active state slightly raised (no big blur) */
+.nav-link.active {
+  transform: translateY(-1px);
+}
