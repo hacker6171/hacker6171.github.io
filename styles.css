@@ -296,3 +296,96 @@ body.menu-open{overflow:hidden}
   box-shadow: 0 12px 28px rgba(2,6,23,0.12);
   opacity: 0.96;
 }
+/* ---------- DARK MODE (follows user system preference) ---------- */
+@media (prefers-color-scheme: dark) {
+  :root{
+    --bg: #0b0f14;            /* page background */
+    --sidebar: #07111a;       /* sidebar bg */
+    --accent: #e6eef8;        /* general text color */
+    --muted: #9aa6b2;         /* secondary text */
+    --card: #07121a;          /* card backgrounds */
+    --accent-strong: #9bd1ff; /* strong accent (buttons, active) */
+  }
+
+  /* body / layout */
+  body{
+    background: linear-gradient(180deg,#071018,#051019);
+    color: var(--accent);
+  }
+
+  /* Sidebar */
+  .sidebar{
+    background: var(--sidebar);
+    border-right: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .profile .name { color: var(--accent); }
+  .profile .role { color: var(--muted); }
+
+  /* nav */
+  .nav-link { color: var(--accent); }
+  .nav-link.active { background: linear-gradient(180deg, rgba(155,209,255,0.12), rgba(155,209,255,0.06)); color: #001827; }
+  .nav-link.active, .resume-btn { box-shadow: 0 6px 18px rgba(0,0,0,0.6); }
+
+  .connect h3 { color: var(--muted); }
+  .connect a { color: var(--accent); }
+
+  /* Main content / cards */
+  .card.intro, .item {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    color: var(--accent);
+  }
+
+  .highlight {
+    background: rgba(255,255,255,0.04);
+    padding: 0 6px;
+    border-radius: 4px;
+    box-shadow: none;
+  }
+
+  .subtitle { color: var(--muted); }
+
+  /* Buttons */
+  .btn { background: var(--accent-strong); color: #001827; }
+  .btn.ghost { background: transparent; border-color: rgba(255,255,255,0.06); color: var(--accent); }
+
+  /* Sections, meta */
+  .meta, .footer, .word-count { color: var(--muted); }
+
+  /* Contact grid */
+  .contact-grid { color: var(--accent); }
+  .contact-item .icon { opacity: 0.95; }
+
+  /* Mobile header / overlay */
+  .mobile-header { background: var(--sidebar); border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .mobile-header .mobile-title { color: var(--accent); }
+  .mobile-backdrop { background: rgba(0,0,0,0.6); }
+
+  /* Sidebar overlay open state */
+  .sidebar.mobile-open { box-shadow: 8px 0 40px rgba(0,0,0,0.6); }
+
+  /* Feedback form */
+  .feedback-form textarea,
+  .feedback-form input {
+    background: #03121a;
+    border: 1px solid rgba(255,255,255,0.04);
+    color: var(--accent);
+  }
+  .feedback-form button { background: var(--accent-strong); color: #001827; }
+
+  /* Badges and images */
+  .cert-badge { filter: none; } /* if you applied any light-only filters, remove them */
+  img.avatar { border: 2px solid rgba(255,255,255,0.06); }
+
+  /* Adjust shadows for dark */
+  .item, .card.intro { box-shadow: 0 8px 24px rgba(0,0,0,0.6); }
+
+  /* Keep body scroll prevention consistent */
+  body.menu-open { overscroll-behavior: contain; }
+
+  /* Small-screen adjustments */
+  @media (max-width:900px) {
+    .main { padding-top: 76px; } /* preserve spacing under mobile header */
+  }
+}
